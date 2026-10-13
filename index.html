@@ -1,0 +1,211 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Portal</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f5fc;
+            color: #222;
+        }
+
+        nav {
+            background: #243b80;
+            color: white;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: white;
+            max-width: 350px;
+            margin: 25px auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #ccc;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #243b80;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 8px;
+        }
+
+        button:hover {
+            background: #405bc0;
+        }
+
+        .dashboard-card {
+            display: inline-block;
+            background: white;
+            padding: 20px;
+            margin: 10px;
+            width: 180px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ddd;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #message {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <h2>CampusConnect</h2>
+        <div>
+            <a onclick="showPage('home')">Home</a>
+            <a onclick="showPage('login')">Login</a>
+            <a onclick="showDashboard()">Dashboard</a>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <section id="home" class="container">
+        <h1>Welcome to CampusConnect</h1>
+        <p>Your college portal for student information and academic updates.</p>
+        <h3>Learn • Connect • Grow</h3>
+        <button onclick="showPage('login')">Student Login</button>
+    </section>
+
+    <!-- Login Page -->
+    <section id="login" class="container hidden">
+        <div class="card">
+            <h2>Student Login</h2>
+
+            <form onsubmit="login(event)">
+                <input type="text" id="username"
+                       placeholder="Enter Username" required>
+
+                <input type="password" id="password"
+                       placeholder="Enter Password" required>
+
+                <p id="message"></p>
+
+                <button type="submit">Login</button>
+            </form>
+
+            <p><b>Demo Username:</b> student</p>
+            <p><b>Demo Password:</b> 1234</p>
+        </div>
+    </section>
+
+    <!-- Dashboard Page -->
+    <section id="dashboard" class="container hidden">
+        <h1>Welcome, <span id="studentName">Student</span>!</h1>
+        <p>Your Student Dashboard</p>
+
+        <div class="dashboard-card">
+            <h3>Subjects</h3>
+            <h2>6</h2>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Attendance</h3>
+            <h2>92%</h2>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Assignments</h3>
+            <h2>3</h2>
+        </div>
+
+        <div class="card">
+            <h3>Student Information</h3>
+            <p>Department: Computer Science</p>
+            <p>Academic Year: 2026-2027</p>
+            <h3>Announcements</h3>
+            <p>Check with your faculty for project review dates.</p>
+        </div>
+
+        <button onclick="logout()">Logout</button>
+    </section>
+
+    <footer class="container">
+        <p>© 2026 CampusConnect | College Project</p>
+    </footer>
+
+    <script>
+        let loggedIn = false;
+
+        function showPage(page) {
+            if (page === "dashboard" && !loggedIn) {
+                page = "login";
+            }
+
+            document.getElementById("home").classList.add("hidden");
+            document.getElementById("login").classList.add("hidden");
+            document.getElementById("dashboard").classList.add("hidden");
+
+            document.getElementById(page).classList.remove("hidden");
+        }
+
+        function login(event) {
+            event.preventDefault();
+
+            let user = document.getElementById("username").value;
+            let pass = document.getElementById("password").value;
+
+            if (user === "student" && pass === "1234") {
+                loggedIn = true;
+
+                document.getElementById("studentName").textContent = user;
+                document.getElementById("message").textContent = "";
+
+                showPage("dashboard");
+            } else {
+                document.getElementById("message").textContent =
+                    "Invalid username or password!";
+            }
+        }
+
+        function showDashboard() {
+            showPage("dashboard");
+        }
+
+        function logout() {
+            loggedIn = false;
+            showPage("home");
+        }
+    </script>
+
+</body>
+</html>
+```
